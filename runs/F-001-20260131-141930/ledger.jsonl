@@ -1,0 +1,6 @@
+{"ts": "2026-01-31T19:19:30.553647+00:00", "step": "INTAKE", "feature_id": "F-001", "run_id": "F-001-20260131-141930"}
+{"ts": "2026-01-31T19:19:30.558749+00:00", "step": "INTAKE", "artifact": "/Users/brett-m1/clawd/runs/F-001-20260131-141930/intake/feature.md"}
+{"ts": "2026-01-31T19:19:30.594531+00:00", "step": "CODEX_STATUS", "label": "pre-plan", "returncode": 0, "raw_path": "/Users/brett-m1/clawd/runs/F-001-20260131-141930/usage/codex-status-pre-plan.txt", "parsed": {"model": "gpt-5.2-codex", "input_tokens": 1557, "output_tokens": 674, "total_tokens": 2231, "cost_usd": 0.004462, "elapsed_s": 0.2}}
+{"ts": "2026-01-31T19:19:30.620983+00:00", "step": "PLAN", "tool": "codex", "returncode": 0, "stdout_path": "/Users/brett-m1/clawd/runs/F-001-20260131-141930/plan/plan.md", "stderr": ""}
+{"ts": "2026-01-31T19:19:30.657039+00:00", "step": "CODEX_STATUS", "label": "post-plan", "returncode": 0, "raw_path": "/Users/brett-m1/clawd/runs/F-001-20260131-141930/usage/codex-status-post-plan.txt", "parsed": {"model": "gpt-5.2-codex", "input_tokens": 1557, "output_tokens": 674, "total_tokens": 2231, "cost_usd": 0.004462, "elapsed_s": 0.2}}
+{"ts": "2026-01-31T19:19:30.705528+00:00", "step": "EXECUTE", "tool": "claude", "returncode": 0, "stdout_path": "/Users/brett-m1/clawd/runs/F-001-20260131-141930/execute/claude-output.txt", "stderr": "", "tokens": null}

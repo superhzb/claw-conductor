@@ -1,0 +1,8 @@
+{
+  "model": "gpt-5.2-codex",
+  "input_tokens": 1557,
+  "output_tokens": 674,
+  "total_tokens": 2231,
+  "cost_usd": 0.004462,
+  "elapsed_s": 0.2
+}

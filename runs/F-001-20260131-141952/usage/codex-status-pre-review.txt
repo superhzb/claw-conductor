@@ -1,0 +1,6 @@
+Model: gpt-5.2-codex
+Input tokens: 1557
+Output tokens: 674
+Total tokens: 2231
+Cost (USD): $0.004462
+Elapsed: 0.2s
