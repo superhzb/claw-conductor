@@ -120,6 +120,11 @@ def main() -> int:
         print("(fake_claude) Applied F-001 changes: /ping + tests")
         return 0
 
+    if re.search(r"F-003|report(\s|-)ui|runs\s*/", prompt, re.IGNORECASE):
+        # F-003 is implemented directly in-repo for the demo.
+        print("(fake_claude) F-003 already present (report UI)")
+        return 0
+
     if re.search(r"F-002|preset greeting|greeter", prompt, re.IGNORECASE):
         # F-002 is already implemented in this repo; keep it idempotent.
         # (In a real run, Claude Code would apply changes here.)

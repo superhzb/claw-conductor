@@ -43,6 +43,26 @@ def main() -> int:
 
     lower = prompt.lower()
     if "(plan)" in lower or "implementation plan" in lower:
+        if "f-003" in lower or ("frontend" in lower and "report" in lower):
+            print(
+                "# Plan\n\n"
+                "## Overview\n"
+                "Add a local FastAPI + Jinja2 UI to browse orch run reports in `runs/`.\n\n"
+                "## Files to Change\n"
+                "- pyproject.toml (add jinja2 dep + console script)\n"
+                "- demo_project/report_ui.py\n"
+                "- demo_project/templates/runs.html\n"
+                "- demo_project/templates/run_detail.html\n"
+                "- tests/test_report_ui.py\n\n"
+                "## Steps\n"
+                "1. Implement `/runs` and `/runs/{run_id}` server-rendered pages.\n"
+                "2. Implement artifact serving with path traversal protection.\n"
+                "3. Add tests with FastAPI TestClient.\n\n"
+                "## Tests\n"
+                "Run `python -m pytest -q`.\n"
+            )
+            return 0
+
         if "f-002" in lower or "preset greeting" in lower or "greeter" in lower:
             print(
                 "# Plan\n\n"
@@ -79,6 +99,20 @@ def main() -> int:
         return 0
 
     if "(review)" in lower or "review the final" in lower:
+        if "f-003" in lower or "report" in lower and "runs" in lower:
+            print(
+                "# Review\n\n"
+                "## Summary\n"
+                "Local FastAPI + Jinja2 report UI added to browse `runs/` and inspect ledger/artifacts.\n\n"
+                "## Potential Issues\n"
+                "Ensure artifact serving blocks path traversal (should resolve under run_dir).\n\n"
+                "## Test Coverage\n"
+                "Includes TestClient coverage for routes and traversal handling.\n\n"
+                "## Next Steps\n"
+                "Add filtering/search and a nicer timeline visualization.\n"
+            )
+            return 0
+
         print(
             "# Review\n\n"
             "## Summary\n"

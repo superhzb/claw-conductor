@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ summary.run_id }} · orch reports</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; margin: 24px; }
+      a { color: #0b5fff; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace; }
+      .muted { color: #666; }
+      .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+      .card { border: 1px solid #eee; border-radius: 12px; padding: 14px; }
+      .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+      .ok { background: #e8fff0; color: #0b6b2e; }
+      .bad { background: #ffecec; color: #9b1c1c; }
+      .na { background: #f2f2f2; color: #444; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border-bottom: 1px solid #eee; padding: 8px; text-align: left; vertical-align: top; }
+      pre { white-space: pre-wrap; word-break: break-word; }
+    </style>
+  </head>
+  <body>
+    <p><a href="/runs">← back to runs</a></p>
+    <h1>{{ summary.run_id }}</h1>
+    <p class="muted">feature: <code>{{ summary.feature_id or "unknown" }}</code></p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Status</h3>
+        <p>
+          VERIFY:
+          {% if summary.verify_ok is sameas true %}
+            <span class="pill ok">PASS</span>
+          {% elif summary.verify_ok is sameas false %}
+            <span class="pill bad">FAIL</span>
+          {% else %}
+            <span class="pill na">N/A</span>
+          {% endif %}
+
+          &nbsp; GATE:
+          {% if summary.gate_ok is sameas true %}
+            <span class="pill ok">OK</span>
+          {% elif summary.gate_ok is sameas false %}
+            <span class="pill bad">BLOCK</span>
+          {% else %}
+            <span class="pill na">N/A</span>
+          {% endif %}
+        </p>
+        <p class="muted">start: {{ summary.started_ts or "—" }}<br/>end: {{ summary.ended_ts or "—" }}</p>
+      </div>
+
+      <div class="card">
+        <h3>Artifacts</h3>
+        <ul>
+          {% for a in artifacts %}
+            <li>
+              <span class="muted">{{ a.label }}:</span>
+              <a href="/runs/{{ summary.run_id }}/artifact/{{ a.rel }}">{{ a.rel }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% if artifacts|length == 0 %}
+          <p class="muted">No artifacts detected in ledger.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 18px;">
+      <h3>Codex usage snapshots</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Label</th>
+            <th>Model</th>
+            <th>Input</th>
+            <th>Output</th>
+            <th>Total</th>
+            <th>Cost</th>
+            <th>Elapsed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in codex_status %}
+            <tr>
+              <td><code>{{ s.label }}</code></td>
+              <td>{{ s.parsed.model }}</td>
+              <td>{{ s.parsed.input_tokens }}</td>
+              <td>{{ s.parsed.output_tokens }}</td>
+              <td>{{ s.parsed.total_tokens }}</td>
+              <td>${{ s.parsed.cost_usd }}</td>
+              <td>{{ s.parsed.elapsed_s }}s</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% if codex_status|length == 0 %}
+        <p class="muted">No CODEX_STATUS entries found.</p>
+      {% endif %}
+    </div>
+
+    <div class="card" style="margin-top: 18px;">
+      <h3>Ledger (raw)</h3>
+      <pre>{{ ledger | tojson(indent=2) }}</pre>
+    </div>
+  </body>
+</html>

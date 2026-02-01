@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>orch reports</title>
+    <style>
+      body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; margin: 24px; }
+      a { color: #0b5fff; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .muted { color: #666; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border-bottom: 1px solid #eee; padding: 10px 8px; text-align: left; vertical-align: top; }
+      .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+      .ok { background: #e8fff0; color: #0b6b2e; }
+      .bad { background: #ffecec; color: #9b1c1c; }
+      .na { background: #f2f2f2; color: #444; }
+    </style>
+  </head>
+  <body>
+    <h1>orch reports</h1>
+    <p class="muted">Runs found in <code>runs/</code></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Run</th>
+          <th>Feature</th>
+          <th>VERIFY</th>
+          <th>GATE</th>
+          <th class="muted">Start</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for r in runs %}
+        <tr>
+          <td><a href="/runs/{{ r.run_id }}">{{ r.run_id }}</a></td>
+          <td>{{ r.feature_id or "—" }}</td>
+          <td>
+            {% if r.verify_ok is sameas true %}
+              <span class="pill ok">PASS</span>
+            {% elif r.verify_ok is sameas false %}
+              <span class="pill bad">FAIL</span>
+            {% else %}
+              <span class="pill na">N/A</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if r.gate_ok is sameas true %}
+              <span class="pill ok">OK</span>
+            {% elif r.gate_ok is sameas false %}
+              <span class="pill bad">BLOCK</span>
+            {% else %}
+              <span class="pill na">N/A</span>
+            {% endif %}
+          </td>
+          <td class="muted">{{ r.started_ts or "—" }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+    {% if runs|length == 0 %}
+      <p>No runs yet. Try: <code>./.venv/bin/orch run F-002</code></p>
+    {% endif %}
+  </body>
+</html>
