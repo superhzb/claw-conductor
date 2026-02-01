@@ -113,11 +113,17 @@ def main() -> int:
 
     prompt = sys.argv[1]
 
-    # Only implement the known demo feature; otherwise no-op.
+    # Only implement known demo features; otherwise no-op.
     if re.search(r"F-001|/ping|pong", prompt, re.IGNORECASE):
         ensure_ping_endpoint()
         ensure_tests()
         print("(fake_claude) Applied F-001 changes: /ping + tests")
+        return 0
+
+    if re.search(r"F-002|preset greeting|greeter", prompt, re.IGNORECASE):
+        # F-002 is already implemented in this repo; keep it idempotent.
+        # (In a real run, Claude Code would apply changes here.)
+        print("(fake_claude) F-002 already present (greeter)")
         return 0
 
     print("(fake_claude) No-op")

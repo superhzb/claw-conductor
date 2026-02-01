@@ -14,7 +14,11 @@ def test_orch_run_f001_creates_artifacts(tmp_path: Path, monkeypatch) -> None:
     repo_root = tmp_path / "repo"
 
     def _ignore(_dir, names):
-        return {n for n in names if n in {".venv", "runs", ".pytest_cache", "__pycache__"}}
+        return {
+            n
+            for n in names
+            if n in {".venv", "runs", ".pytest_cache", "__pycache__", ".git"}
+        }
 
     shutil.copytree(Path.cwd(), repo_root, dirs_exist_ok=True, ignore=_ignore)
 

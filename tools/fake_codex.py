@@ -43,6 +43,24 @@ def main() -> int:
 
     lower = prompt.lower()
     if "(plan)" in lower or "implementation plan" in lower:
+        if "f-002" in lower or "preset greeting" in lower or "greeter" in lower:
+            print(
+                "# Plan\n\n"
+                "## Overview\n"
+                "Add a simple Typer-based CLI `greeter` that prints a preset greeting regardless of input.\n\n"
+                "## Files to Change\n"
+                "- pyproject.toml (add console script)\n"
+                "- demo_project/greeter.py\n"
+                "- tests/test_greeter_cli.py\n\n"
+                "## Steps\n"
+                "1. Implement Typer CLI with one argument and constant output.\n"
+                "2. Add a test invoking the module and asserting output.\n"
+                "3. Run `python -m pytest -q`.\n\n"
+                "## Tests\n"
+                "Run `python -m pytest -q`.\n"
+            )
+            return 0
+
         print(
             "# Plan\n\n"
             "## Overview\n"
@@ -56,7 +74,7 @@ def main() -> int:
             "2. Add integration test with FastAPI TestClient.\n"
             "3. Add e2e test that runs uvicorn and calls `/ping`.\n\n"
             "## Tests\n"
-            "Run `python -m pytest`.\n"
+            "Run `python -m pytest -q`.\n"
         )
         return 0
 
